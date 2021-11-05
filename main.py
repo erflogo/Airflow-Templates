@@ -51,7 +51,7 @@ def csv_to_postgres():
 
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
-							CREATE TABLE USER_PURCHASE(
+							CREATE TABLE IF NOT EXISTS USER_PURCHASE(
 							INVOICE_NUMBER VARCHAR(10),
 							STOCK_CODE VARCHAR(20),
 							DETAIL VARCHAR(1000),
