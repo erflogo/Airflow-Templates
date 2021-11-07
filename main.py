@@ -16,14 +16,14 @@ Load CSV > Postgres in GCP Cloud SQL Instance
 #default arguments 
 
 default_args = {
-    'owner': 'erflogo',
-    'depends_on_past': False,    
-    'start_date': datetime(2021, 10, 1),
-    'email': ['erflogo@gmail.com'],
-    'email_on_failure': True,
-    'email_on_retry': False,
-    'retries': 2,
-    'retry_delay': timedelta(minutes=1),
+	'owner': 'erflogo',
+	'depends_on_past': False,    
+	'start_date': datetime(2021, 10, 1),
+	'email': ['erflogo@gmail.com'],
+	'email_on_failure': True,
+	'email_on_retry': False,
+	'retries': 2,
+	'retry_delay': timedelta(minutes=1),
 }
 
 #name the DAG and configuration
@@ -39,18 +39,18 @@ def file_path(relative_path):
     return new_path
 
 def csv_to_postgres():
-    #Open Postgres Connection
-    pg_hook = PostgresHook(postgres_conn_id='postgres_default')
-    get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
-    curr = get_postgres_conn.cursor()
-    # CSV loading to table
-    with open(file_path("user_purchase.csv"), "r") as f:
-        next(f)
+	#Open Postgres Connection
+	pg_hook = PostgresHook(postgres_conn_id='postgres_default')
+	get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
+	curr = get_postgres_conn.cursor()
+	# CSV loading to table
+	with open(file_path("user_purchase.csv"), "r") as f:
+		next(f)
 		curs.copy_expert("""COPY user_purchase FROM STDIN WITH (FORMAT CSV)""", f)
-        #curr.copy_from(f, 'user_purchase', sep=",")
+		#curr.copy_from(f, 'user_purchase', sep=",")
 		#sql = f"DELETE FROM amazon.amazon_purchases; COPY amazon.amazon_purchases FROM '{path}' DELIMITER ',' CSV HEADER;"
-        #hook_copy_expert(sql, path, open=open)
-        get_postgres_conn.commit()
+		#hook_copy_expert(sql, path, open=open)
+		get_postgres_conn.commit()
 
 task1 = PostgresOperator(task_id = 'create_table',
                         sql="""
