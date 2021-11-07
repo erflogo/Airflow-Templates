@@ -48,6 +48,8 @@ def csv_to_postgres():
         next(f)
 		curs.copy_expert("""COPY user_purchase FROM STDIN WITH (FORMAT CSV)""", f)
         #curr.copy_from(f, 'user_purchase', sep=",")
+		#sql = f"DELETE FROM amazon.amazon_purchases; COPY amazon.amazon_purchases FROM '{path}' DELIMITER ',' CSV HEADER;"
+        #hook_copy_expert(sql, path, open=open)
         get_postgres_conn.commit()
 
 task1 = PostgresOperator(task_id = 'create_table',
