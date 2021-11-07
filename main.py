@@ -46,7 +46,7 @@ def csv_to_postgres():
 	# CSV loading to table
 	with open(file_path("user_purchase.csv"), "r") as f:
 		next(f)
-		curs.copy_expert("""COPY user_purchase FROM STDIN WITH (FORMAT CSV)""", f)
+		curr.copy_expert("""COPY user_purchase FROM STDIN WITH (FORMAT CSV)""", f)
 		#curr.copy_from(f, 'user_purchase', sep=",")
 		#sql = f"DELETE FROM amazon.amazon_purchases; COPY amazon.amazon_purchases FROM '{path}' DELIMITER ',' CSV HEADER;"
 		#hook_copy_expert(sql, path, open=open)
